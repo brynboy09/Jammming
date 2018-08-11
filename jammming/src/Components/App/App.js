@@ -18,6 +18,7 @@ class App extends React.Component {
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.goSearch = this.goSearch.bind(this);
+    this.getPreviewUrl = this.getPreviewUrl.bind(this);
   }
 
   addTrack (track) {
@@ -55,6 +56,11 @@ class App extends React.Component {
     });
   }
 
+  getPreviewUrl (trackId) {
+    const previewUrl = Spotify.getTrackPreview(trackId);
+    return previewUrl;
+  }
+
   render () {
     return (
       <div>
@@ -62,7 +68,7 @@ class App extends React.Component {
         <div className="App">
           <SearchBar onSearch={this.goSearch} />
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} onPlay={this.getPreviewUrl} />
             <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} onSave={this.savePlaylist} />
           </div>
         </div>

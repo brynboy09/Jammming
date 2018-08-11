@@ -24,6 +24,20 @@ class Track extends React.Component {
     this.props.onRemove(this.props.track);
   }
 
+  playPreview () {
+    const previewUrl = this.props.onPlay(this.props.track.id);
+    console.log(previewUrl);
+    if (previewUrl) {
+      return (
+        <audio controls>
+          <source src={previewUrl} type="audio/mp3" />
+          Your browser does not support the audio element.
+        </audio>
+      );
+    }
+    return;
+  }
+
   render () {
     return (
       <div className="Track">
@@ -31,7 +45,7 @@ class Track extends React.Component {
           <h3>{this.props.track.name}</h3>
           <p>{this.props.track.artist} | {this.props.track.album}</p>
         </div>
-        {this.renderAction()}
+        {this.playPreview()}{this.renderAction()}
       </div>
     );
   }
